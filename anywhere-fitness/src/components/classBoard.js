@@ -1,4 +1,5 @@
 import React from "react";
+import { AxiosWithAuth } from "./axiosWithAuthentification";
 
 const MyClassBoard = (props) => {
   return (
