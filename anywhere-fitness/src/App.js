@@ -10,9 +10,9 @@ function App() {
     <Router>
       <div className="App">
         <Switch>
-          <PrivateRoute exact path="/classBoard" component={MyClassBoard} />
           <Route path="/loginPage" component={Login} />
           <Route component={Login} />
+          <PrivateRoute exact path="/classBoard" component={MyClassBoard} />
         </Switch>
       </div>
     </Router>

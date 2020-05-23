@@ -4,8 +4,8 @@ import axios from "axios";
 class Login extends Component {
   state = {
     credentials: {
-      username: "",
-      password: "",
+      username: "abrobins",
+      password: "coolbeans",
     },
   };
 
@@ -16,7 +16,10 @@ class Login extends Component {
     e.preventDefault();
 
     axios
-      .post("http://localhost:5000/api/auth/login/user", this.state.credentials)
+      .post(
+        "https://anywhere-fitness-ptwb.herokuapp.com/api/auth/login/user",
+        this.state.credentials
+      )
       .then((response) => {
         console.log(response.data);
         localStorage.setItem("token", response.data.payload);
@@ -41,6 +44,7 @@ class Login extends Component {
     return (
       <div className="formBody">
         <h1 className="">Login</h1>
+        <h3>Client Login</h3>
         <form className="formArrange" onSubmit={this.handleSubmit}>
           <input
             className="input"

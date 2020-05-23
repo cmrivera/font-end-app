@@ -1,19 +1,30 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { AxiosWithAuth } from "./axiosWithAuthentification";
 
 const MyClassBoard = (props) => {
+  const [classBoard, setClassBoard] = useState([]);
+
+  useEffect(() => {
+    AxiosWithAuth()
+      .get("/api/classes")
+      .then((response) => {
+        setClassBoard(response.data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
+  const updateClasses = () => {
+    AxiosWithAuth()
+      .get("https://anywhere-fitness.ptbw.herokuapp.com/api/classes")
+      .then((res) => {
+        setClassBoard(res.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
-    <div>
-      <h3>Class:</h3>
-      <p>Class Type:</p>
-      <p>Class Description:</p>
-      <p>Start Time:</p>
-      <p>Duration:</p>
-      <p>Intensity:</p>
-      <p>Location:</p>
-      <p>Registered:</p>
-      <p>Max Size:</p>
-    </div>
+    <>
+      <MyClassBoard classes={classBoard} updateClasses={updateClasses} />
+    </>
   );
 };
 export default MyClassBoard;
