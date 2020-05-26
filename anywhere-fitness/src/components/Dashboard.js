@@ -1,22 +1,25 @@
-import React from "react";
-import { getUser, removeUserSession } from "../Utils/Common";
+import React, { useState, useEffect } from "react";
+import Axios from "axios";
+import Classes from "./classes";
 
-function Dashboard(props) {
-  const user = getUser();
-  // handle click event of logout button
-  const handleLogout = () => {
-    removeUserSession();
-    props.history.push("/login");
-  };
+const DashBoard = () => {
+  const ApiUrl = "https://anywhere-fitness-ptbw.herokuapp.com/api/classes";
+  const [classList, setClassList] = useState();
 
+  useEffect(() => {
+    Axios.get(ApiUrl)
+      .then((response) => setClassList(response.data.results))
+      .catch((error) => console.log(error));
+  }, []);
+  console.log(classList);
+
+  if (!classList) return "Loading...";
   return (
     <div>
-      Welcome {user.name}!
-      <br />
-      <br />
-      <input type="button" onClick={handleLogout} value="Logout" />
+      {classList.map((item, index) => (
+        <Classes key={index} item={item} />
+      ))}
     </div>
   );
-}
-
-export default Dashboard;
+};
+export default DashBoard;

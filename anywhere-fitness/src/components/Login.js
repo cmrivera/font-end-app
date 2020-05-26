@@ -13,7 +13,7 @@ function Login(props) {
     setError(null);
     setLoading(true);
     axios
-      .post("http://localhost:4000/users/signin", {
+      .post("https://anywhere-fitness-ptbw.herokuapp.com/api/auth/login/user", {
         username: username.value,
         password: password.value,
       })
