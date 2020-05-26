@@ -1,6 +1,6 @@
 import React from "react";
 
-const Classes = (props) => {
+const Classes = ({ classes }) => {
   const {
     id,
     location,
@@ -13,7 +13,7 @@ const Classes = (props) => {
     registered,
     max_size,
     instructor_name,
-  } = props.item;
+  } = classes.item;
 
   return (
     <div>
