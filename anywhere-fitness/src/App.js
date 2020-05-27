@@ -22,6 +22,7 @@ function App() {
       .get(`https://anywhere-fitness-ptbw.herokuapp.com/api/auth/login/user`)
       .then((response) => {
         setUserSession(response.data.token, response.data.user);
+        localStorage.setItem("token", response.data.token);
         setAuthLoading(false);
       })
       .catch((error) => {

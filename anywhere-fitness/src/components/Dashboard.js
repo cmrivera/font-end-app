@@ -1,4 +1,5 @@
 import React from "react";
+import axiosWithAuth from "./AxiosWithAuth";
 
 class DashBoard extends React.Component {
   constructor(props) {
@@ -12,8 +13,10 @@ class DashBoard extends React.Component {
 
   getClassList() {
     this.setState({ loading: true });
-    fetch("https://anywhere-fitness-ptbw.herokuapp.com/api/classes")
-      .then((res) => res.json())
+
+    axiosWithAuth()
+      .get("https://anywhere-fitness-ptbw.herokuapp.com/api/classes")
+      // .then((res) => res.json())
       .then((res) => {
         setTimeout(() => {
           this.setState({ loading: false, classList: res.data });
@@ -36,45 +39,42 @@ class DashBoard extends React.Component {
         </button>
         <div className="clearfix"></div>
 
-        <table class="table mt-3">
-          <thead class="thead-dark">
-            <th>ID</th>
-            <th>Location</th>
-            <th>Class Name</th>
-            <th>Class Type</th>
-            <th>Class Description</th>
-            <th>Start Time</th>
-            <th> Duration</th>
-            <th>Intensity</th>
-            <th>Registered</th>
-            <th>Max Size</th>
-            <th>Instructor Name</th>
-          </thead>
-          <tbody>
-            {classList.map((x) => (
-              <tr>
-                <td>{x.id}</td>
-                <td>{x.location}</td>
-                <td>{x.class_name}</td>
-                <td>{x.class_type}</td>
-                <td>{x.class_desc}</td>
-                <td>{x.start_time}</td>
-                <td>{x.duration}</td>
-                <td>{x.intensity}</td>
-                <td>{x.registered}</td>
-                <td>{x.max_size}</td>
-                <td>{x.instructor_name}</td>
-              </tr>
-            ))}
-            {classList.length === 0 && (
-              <tr>
-                <td className="text-center" colSpan="4">
-                  <b>No data found to display.</b>
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+        <ul>
+          <li>ID</li>
+          <li>Location</li>
+          <li>Class Name</li>
+          <li>Class Type</li>
+          <li>Class Description</li>
+          <li>Start Time</li>
+          <li> Duration</li>
+          <li>Intensity</li>
+          <li>Registered</li>
+          <li>Max Size</li>
+          <li>Instructor Name</li>
+        </ul>
+
+        {classList.map((res) => (
+          <ul>
+            <li>{res.id}</li>
+            <li>{res.location}</li>
+            <li>{res.class_name}</li>
+            <li>{res.class_type}</li>
+            <li>{res.class_desc}</li>
+            <li>{res.start_time}</li>
+            <li>{res.duration}</li>
+            <li>{res.intensity}</li>
+            <li>{res.registered}</li>
+            <li>{res.max_size}</li>
+            <li>{res.instructor_name}</li>
+          </ul>
+        ))}
+        {classList.length === 0 && (
+          <ul>
+            <li className="text-center" colSpan="4">
+              <b>No data found to display.</b>
+            </li>
+          </ul>
+        )}
       </div>
     );
   }

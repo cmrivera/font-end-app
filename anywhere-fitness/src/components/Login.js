@@ -20,6 +20,7 @@ function Login(props) {
       .then((response) => {
         setLoading(false);
         setUserSession(response.data.token, response.data.user);
+        localStorage.setItem("token", response.data.token);
         props.history.push("/dashboard");
       })
       .catch((error) => {
