@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 export default function AddClass(props) {
   const [newClass, setNewClass] = useState({
@@ -16,20 +17,42 @@ export default function AddClass(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("class submitted!");
+    axios
+      .post(
+        "https://anywhere-fitness-ptbw.herokuapp.com/api/classes/instructor/:id",
+        newClass
+      )
+      .then((response) =>
+        e.setNewClass({
+          newClass: [...e.state.newClass, response.data],
+        })
+      )
+      .catch((err) => console.log(err));
+  };
 
-    props.addClass(newClass);
-    setNewClass({
-      id: "",
-      class: "",
-      type: "",
-    });
+  const handleDelete = (e) => {
+    e.preventDefault();
+    console.log("class submitted!");
+    axios
+      .delete(
+        "https://anywhere-fitness-ptbw.herokuapp.com/api/classes/instructor/:id",
+        newClass
+      )
+      .then((response) =>
+        e.setNewClass({
+          newClass: [...e.state.newClass, response.data],
+        })
+      )
+      .catch((err) => console.log(err));
   };
 
   return (
     <>
       <input
-        type="text"
+        type="number"
         name="Id"
+        id=":id"
         value={newClass.id}
         onChange={handleChanges}
         placeholder="class id"
@@ -48,8 +71,41 @@ export default function AddClass(props) {
         onChange={handleChanges}
         placeholder="class type"
       />
+
+      <input
+        type="text"
+        name="StartTime"
+        value={newClass.start_time}
+        onChange={handleChanges}
+        placeholder="start time"
+      />
+      <input
+        type="text"
+        name="duration"
+        value={newClass.duration}
+        onChange={handleChanges}
+        placeholder="duration"
+      />
+      <input
+        type="text"
+        name="type"
+        value={newClass.intensity}
+        onChange={handleChanges}
+        placeholder="intensity"
+      />
+      <input
+        type="text"
+        name="type"
+        value={newClass.location}
+        onChange={handleChanges}
+        placeholder="location"
+      />
+
       <button className="button" onClick={handleSubmit}>
         Add Class
+      </button>
+      <button className="button" onClick={handleDelete}>
+        Delete Class
       </button>
     </>
   );
