@@ -102,7 +102,7 @@ export default function AddClass(props) {
       />
 
       <button className="button" onClick={handleSubmit}>
-        Add Class
+        Add New Class
       </button>
       <button className="button" onClick={handleDelete}>
         Delete Class
